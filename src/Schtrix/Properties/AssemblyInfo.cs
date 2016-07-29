@@ -1,0 +1,10 @@
+﻿using System.Reflection;
+[assembly: AssemblyTitle("Schtrix")]
+[assembly: AssemblyDescription("Universal barcode reader")]
+[assembly: AssemblyConfiguration("")]
+[assembly: AssemblyCompany("Nikolai Voronin")]
+[assembly: AssemblyProduct("Schtrix")]
+[assembly: AssemblyCopyright("Copyright © 2015 Nikolai Voronin")]
+[assembly: AssemblyTrademark("")]
+[assembly: AssemblyCulture("")]
+[assembly: AssemblyVersion("1.0.*")]
