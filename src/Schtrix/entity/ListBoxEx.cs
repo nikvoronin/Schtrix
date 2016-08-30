@@ -1,12 +1,6 @@
-﻿using Schtrix.entity;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using ZXing;
 
 namespace Schtrix.entity
 {
@@ -24,9 +18,7 @@ namespace Schtrix.entity
             base.OnMeasureItem(e);
 
             if ((e.Index < 0) || (e.Index >= Items.Count))
-            {
                 return;
-            }
 
             Barcode bc = Items[e.Index] as Barcode;
             if (bc != null)
@@ -34,7 +26,7 @@ namespace Schtrix.entity
                 bc.CachedHeight = bc.Image.Height + PADDING_PX + PADDING_PX;
 
                 e.ItemHeight = (int)bc.CachedHeight;
-                e.ItemWidth = this.Width;
+                e.ItemWidth = Width;
             }            
         }
 
@@ -43,27 +35,36 @@ namespace Schtrix.entity
             base.OnMouseDown(e);
             int idx = IndexFromPoint(e.X, e.Y);
             if ((idx > -1) && (Items.Count > 0) )
-            {
                 SelectedIndex = idx;
-            }
         }
 
-        protected override void OnDrawItem(System.Windows.Forms.DrawItemEventArgs e)
+        protected string[] BoundText(string text, Font font, Graphics g)
+        {
+            string[] parts = null;
+            string txt = text;
+            while (g.MeasureString(txt, font).Width > Width)
+                txt = txt.Substring(0, txt.Length / 2);
+
+            int len = txt.Length;
+            int cnt = text.Length / len;
+            parts = new string[cnt];
+            for(int i = 0; i < cnt; i++)
+                parts[i] = text.Substring(cnt * i, len);
+
+            return parts;
+        }
+
+        protected override void OnDrawItem(DrawItemEventArgs e)
         {
             base.OnDrawItem(e);
             if ((e.Index < 0) || (e.Index >= Items.Count))
-            {
                 return;
-            }
 
-            if ((e.State & DrawItemState.Selected) == DrawItemState.Selected)
-            {
-                e.Graphics.FillRectangle(SystemBrushes.Highlight, e.Bounds);
-            }
-            else
-            {
-                e.Graphics.FillRectangle(SystemBrushes.Window, e.Bounds);
-            }
+            e.Graphics.FillRectangle(
+                (e.State & DrawItemState.Selected) == DrawItemState.Selected ?
+                    SystemBrushes.Highlight :
+                    SystemBrushes.Window,
+                e.Bounds);
 
             Barcode bc = Items[e.Index] as Barcode;
             if (bc != null)
@@ -74,25 +75,17 @@ namespace Schtrix.entity
                 float y = e.Bounds.Y + PADDING_PX;
                 float x = e.Bounds.X + bc.Image.Width + PADDING_PX + PADDING_PX;
 
-                switch (bc.BarcodeFormat)
+                string[] parts = BoundText(bc.Text, SystemFonts.DefaultFont, e.Graphics);
+                foreach (string str in parts)
                 {
-                    case BarcodeFormat.PDF_417:
-                        e.Graphics.DrawString(
-                            bc.Text,
-                            SystemFonts.DefaultFont,
-                            Brushes.Black,
-                            x, y);
-                        y += fh + PADDING_PX;
-                        break;
-                    default:
-                        e.Graphics.DrawString(
-                            bc.Text,
-                            SystemFonts.DefaultFont,
-                            Brushes.Black,
-                            x, y);
-                        y += fh + PADDING_PX;
-                        break;
-                }
+                    e.Graphics.DrawString(
+                        str,
+                        SystemFonts.DefaultFont,
+                        Brushes.Black,
+                        x, y);
+
+                    y += fh + PADDING_PX;
+                } // foreach
 
                 e.Graphics.DrawString(
                     bc.BarcodeFormat.ToString(),
@@ -108,7 +101,7 @@ namespace Schtrix.entity
                     Brushes.Black,
                     x, y);
                 y += fh + PADDING_PX;
-            }
-        }
-    }
+            } // if bc != null
+        } // OnDrawItem()
+    } // class
 }

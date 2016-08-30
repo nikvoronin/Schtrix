@@ -1,13 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
-using System.Drawing;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Schtrix
@@ -23,6 +16,7 @@ namespace Schtrix
         {
             Assembly execAsm = Assembly.GetExecutingAssembly();
             versionLabel.Text = execAsm.GetName().Version.ToString();
+            copyrightLabel.Text = ((AssemblyCopyrightAttribute)execAsm.GetCustomAttributes(typeof(AssemblyCopyrightAttribute), false)[0]).Copyright;
         }
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -33,6 +27,11 @@ namespace Schtrix
         private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             Process.Start("http://www.aforgenet.com/");
+        }
+
+        private void linkLabel3_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start(linkLabel3.Text);
         }
     }
 }

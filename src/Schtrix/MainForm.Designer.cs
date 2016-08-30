@@ -56,11 +56,14 @@ namespace Schtrix
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.cleanHistoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.saveBarcodeImageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.autosaveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveHistoryToDbtxtToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveWebcamshotWhenRecognizedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.saveBarcodeImageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
             this.autoCopyRecognizedTextToClipboardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.enableSoundsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutSchtrixToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainMenuStrip = new System.Windows.Forms.MenuStrip();
@@ -267,47 +270,71 @@ namespace Schtrix
             // optionsToolStripMenuItem
             // 
             this.optionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.saveBarcodeImageToolStripMenuItem,
-            this.saveHistoryToDbtxtToolStripMenuItem,
-            this.saveWebcamshotWhenRecognizedToolStripMenuItem,
+            this.autosaveToolStripMenuItem,
             this.toolStripSeparator2,
-            this.autoCopyRecognizedTextToClipboardToolStripMenuItem});
+            this.enableSoundsToolStripMenuItem});
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
             this.optionsToolStripMenuItem.Size = new System.Drawing.Size(73, 24);
             this.optionsToolStripMenuItem.Text = "&Options";
             // 
-            // saveBarcodeImageToolStripMenuItem
+            // autosaveToolStripMenuItem
             // 
-            this.saveBarcodeImageToolStripMenuItem.CheckOnClick = true;
-            this.saveBarcodeImageToolStripMenuItem.Name = "saveBarcodeImageToolStripMenuItem";
-            this.saveBarcodeImageToolStripMenuItem.Size = new System.Drawing.Size(282, 24);
-            this.saveBarcodeImageToolStripMenuItem.Text = "Autosave Barcode As &Image";
+            this.autosaveToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.saveHistoryToDbtxtToolStripMenuItem,
+            this.saveWebcamshotWhenRecognizedToolStripMenuItem,
+            this.saveBarcodeImageToolStripMenuItem,
+            this.toolStripSeparator7,
+            this.autoCopyRecognizedTextToClipboardToolStripMenuItem});
+            this.autosaveToolStripMenuItem.Name = "autosaveToolStripMenuItem";
+            this.autosaveToolStripMenuItem.Size = new System.Drawing.Size(175, 24);
+            this.autosaveToolStripMenuItem.Text = "Automation";
             // 
             // saveHistoryToDbtxtToolStripMenuItem
             // 
             this.saveHistoryToDbtxtToolStripMenuItem.CheckOnClick = true;
             this.saveHistoryToDbtxtToolStripMenuItem.Name = "saveHistoryToDbtxtToolStripMenuItem";
-            this.saveHistoryToDbtxtToolStripMenuItem.Size = new System.Drawing.Size(282, 24);
-            this.saveHistoryToDbtxtToolStripMenuItem.Text = "Autosave &History to File";
+            this.saveHistoryToDbtxtToolStripMenuItem.Size = new System.Drawing.Size(251, 24);
+            this.saveHistoryToDbtxtToolStripMenuItem.Text = "Save &History to File";
             // 
             // saveWebcamshotWhenRecognizedToolStripMenuItem
             // 
             this.saveWebcamshotWhenRecognizedToolStripMenuItem.CheckOnClick = true;
             this.saveWebcamshotWhenRecognizedToolStripMenuItem.Name = "saveWebcamshotWhenRecognizedToolStripMenuItem";
-            this.saveWebcamshotWhenRecognizedToolStripMenuItem.Size = new System.Drawing.Size(282, 24);
-            this.saveWebcamshotWhenRecognizedToolStripMenuItem.Text = "Autosave &Screenshot";
+            this.saveWebcamshotWhenRecognizedToolStripMenuItem.Size = new System.Drawing.Size(251, 24);
+            this.saveWebcamshotWhenRecognizedToolStripMenuItem.Text = "Save &Screenshot";
             // 
-            // toolStripSeparator2
+            // saveBarcodeImageToolStripMenuItem
             // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(279, 6);
+            this.saveBarcodeImageToolStripMenuItem.CheckOnClick = true;
+            this.saveBarcodeImageToolStripMenuItem.Name = "saveBarcodeImageToolStripMenuItem";
+            this.saveBarcodeImageToolStripMenuItem.Size = new System.Drawing.Size(251, 24);
+            this.saveBarcodeImageToolStripMenuItem.Text = "Save Barcode As &Image";
+            // 
+            // toolStripSeparator7
+            // 
+            this.toolStripSeparator7.Name = "toolStripSeparator7";
+            this.toolStripSeparator7.Size = new System.Drawing.Size(248, 6);
             // 
             // autoCopyRecognizedTextToClipboardToolStripMenuItem
             // 
             this.autoCopyRecognizedTextToClipboardToolStripMenuItem.CheckOnClick = true;
             this.autoCopyRecognizedTextToClipboardToolStripMenuItem.Name = "autoCopyRecognizedTextToClipboardToolStripMenuItem";
-            this.autoCopyRecognizedTextToClipboardToolStripMenuItem.Size = new System.Drawing.Size(282, 24);
-            this.autoCopyRecognizedTextToClipboardToolStripMenuItem.Text = "Autocopy to Clipboard As &Text";
+            this.autoCopyRecognizedTextToClipboardToolStripMenuItem.Size = new System.Drawing.Size(251, 24);
+            this.autoCopyRecognizedTextToClipboardToolStripMenuItem.Text = "Copy to Clipboard As &Text";
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(172, 6);
+            // 
+            // enableSoundsToolStripMenuItem
+            // 
+            this.enableSoundsToolStripMenuItem.Checked = true;
+            this.enableSoundsToolStripMenuItem.CheckOnClick = true;
+            this.enableSoundsToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.enableSoundsToolStripMenuItem.Name = "enableSoundsToolStripMenuItem";
+            this.enableSoundsToolStripMenuItem.Size = new System.Drawing.Size(175, 24);
+            this.enableSoundsToolStripMenuItem.Text = "Enable Sounds";
             // 
             // helpToolStripMenuItem
             // 
@@ -405,14 +432,17 @@ namespace Schtrix
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private System.Windows.Forms.ToolStripMenuItem cleanHistoryToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem optionsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem saveBarcodeImageToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem saveHistoryToDbtxtToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem saveWebcamshotWhenRecognizedToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem autoCopyRecognizedTextToClipboardToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutSchtrixToolStripMenuItem;
         private System.Windows.Forms.MenuStrip mainMenuStrip;
+        private System.Windows.Forms.ToolStripMenuItem autosaveToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem saveHistoryToDbtxtToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem saveWebcamshotWhenRecognizedToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem saveBarcodeImageToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
+        private System.Windows.Forms.ToolStripMenuItem autoCopyRecognizedTextToClipboardToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem enableSoundsToolStripMenuItem;
     }
 }
 

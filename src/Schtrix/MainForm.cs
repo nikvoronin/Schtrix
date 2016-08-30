@@ -65,6 +65,7 @@ namespace Schtrix
             }
             catch { }
 
+            enableSoundsToolStripMenuItem.Checked = Properties.Settings.Default.Sounds;
             autoCopyRecognizedTextToClipboardToolStripMenuItem.Checked = Properties.Settings.Default.AutoCopy;
             saveWebcamshotWhenRecognizedToolStripMenuItem.Checked = Properties.Settings.Default.SaveWebcamShot;
             saveHistoryToDbtxtToolStripMenuItem.Checked = Properties.Settings.Default.SaveHistory;
@@ -91,8 +92,7 @@ namespace Schtrix
                     {
                         Result[] result = null;
 
-                        try
-                        {
+                        try {
                             result = reader.DecodeMultiple(currentFrame);
                         }
                         catch { }
@@ -112,14 +112,15 @@ namespace Schtrix
                                     continue;
 
                                 if (saveWebcamshotWhenRecognizedToolStripMenuItem.Checked)
-                                    try
-                                    {
+                                {
+                                    try {
                                         currentFrame.Save(
                                             imgPath + Path.DirectorySeparatorChar + r.Timestamp.ToString() + ".jpg",
                                             ImageFormat.Jpeg
                                             );
                                     }
                                     catch { }
+                                }
 
                                 if (saveHistoryToDbtxtToolStripMenuItem.Checked)
                                 {
@@ -159,12 +160,10 @@ namespace Schtrix
             writer.Format = r.BarcodeFormat;
             writer.Options.PureBarcode = true;
             writer.Options.Height = 100;
-            try 
-            { 
+            try { 
                 b.Image = writer.Write(r.Text);
             }
-            catch
-            {
+            catch {
                 b.Image = new Bitmap(writer.Options.Width, writer.Options.Height);
             }
 
@@ -173,21 +172,22 @@ namespace Schtrix
 
             historyListBox.Items.Insert(0, b);
 
-            SystemSounds.Beep.Play();
+            if (enableSoundsToolStripMenuItem.Checked)
+                SystemSounds.Beep.Play();
+
             if (autoCopyRecognizedTextToClipboardToolStripMenuItem.Checked)
                 Clipboard.SetText(r.Text);
 
             if (saveBarcodeImageToolStripMenuItem.Checked)
             {
-                try
-                {
+                try {
                     b.Image.Save(
                         imgPath + Path.DirectorySeparatorChar + r.Timestamp.ToString() + ".png",
                         ImageFormat.Png
                         );
                 }
                 catch { }
-            }
+            } 
         }
 
         private void FillWebcamsCombo()
@@ -233,8 +233,7 @@ namespace Schtrix
             if (IsDisposed)
                 return;
 
-            try
-            {
+            try {
                 if (currentFrame == null)
                     currentFrame = (Bitmap)eventArgs.Frame.Clone();
 
@@ -258,6 +257,7 @@ namespace Schtrix
                 SwitchWebcamOnOff(false);
             }
 
+            Properties.Settings.Default["Sounds"] = enableSoundsToolStripMenuItem.Checked;
             Properties.Settings.Default["AutoCopy"] = autoCopyRecognizedTextToClipboardToolStripMenuItem.Checked;
             Properties.Settings.Default["SaveWebcamShot"] = saveWebcamshotWhenRecognizedToolStripMenuItem.Checked;
             Properties.Settings.Default["SaveHistory"] = saveHistoryToDbtxtToolStripMenuItem.Checked;
@@ -289,28 +289,23 @@ namespace Schtrix
 
         private void SwitchWebcamOnOff(bool isSwitchOn)
         {
-            if (isSwitchOn)
-            {   // ON
+            if (isSwitchOn) {   // ON
                 int index = ((Device)(webcamComboBox.SelectedItem)).Index;
-                if ((index < webcams.Count) && webcamOnCheckBox.Checked)
-                {
+                if ((index < webcams.Count) && webcamOnCheckBox.Checked) {
                     camera = new VideoCaptureDevice(webcams[index].MonikerString);
                     camera.NewFrame += camera_NewFrame;
                     camera.Start();
                 }
             }
-            else
-            {   // OFF
-                if (camera != null)
-                {
+            else {   // OFF
+                if (camera != null) {
                     camera.NewFrame -= camera_NewFrame;
-                    if (camera.IsRunning)
-                    {
+                    if (camera.IsRunning) {
                         camera.SignalToStop();
                         gp.FillRectangle(Brushes.CornflowerBlue, 0, 0, previewPanel.Width, previewPanel.Height);
                     }
-                }
-            }
+                } // if
+            } // else
         }
 
         private void webcamOnCheckBox_CheckedChanged(object sender, EventArgs e)
@@ -364,8 +359,7 @@ namespace Schtrix
             Barcode bc = historyListBox.Items[historyListBox.SelectedIndex] as Barcode;
             if (bc != null)
             {
-                try
-                {
+                try {
                     Process.Start(bc.Text.Trim());
                 }
                 catch { }
@@ -416,8 +410,7 @@ namespace Schtrix
 
         private void opendbtxtToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            try
-            {
+            try {
                 Process.Start(appPath + Path.DirectorySeparatorChar + DB_FILENAME);
             }
             catch { }
@@ -425,8 +418,7 @@ namespace Schtrix
 
         private void findImageFolderToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            try
-            {
+            try {
                 Process.Start(imgPath);
             }
             catch { }
@@ -440,8 +432,7 @@ namespace Schtrix
 
         private void fileToolStripMenuItem_DropDownOpening(object sender, EventArgs e)
         {
-            try
-            {
+            try {
                 opendbtxtToolStripMenuItem.Enabled = File.Exists(appPath + Path.DirectorySeparatorChar + DB_FILENAME);
             }
             catch { }
@@ -453,16 +444,15 @@ namespace Schtrix
                 Barcode bc = historyListBox.Items[historyListBox.SelectedIndex] as Barcode;
                 if (bc == null)
                     openURLToolStripMenuItem1.Enabled = false;
-                else
-                {
+                else {
                     string rawText = bc.Text.Trim();
 
                     if (rawText.StartsWith("http") && rawText.Contains("://"))
                         openURLToolStripMenuItem1.Enabled = true;
                     else
                         openURLToolStripMenuItem1.Enabled = false;
-                } // else if
-            } // else if
-        }
-    }
+                } // else if (bc == null)
+            } // else if (historyListBox.SelectedIndex < 0)
+        } // fileToolStripMenuItem_DropDownOpening
+    } // class
 }
