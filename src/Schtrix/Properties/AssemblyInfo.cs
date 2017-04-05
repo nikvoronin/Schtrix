@@ -4,7 +4,7 @@
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Nikolai Voronin")]
 [assembly: AssemblyProduct("Schtrix")]
-[assembly: AssemblyCopyright("Copyright © 2015-2016 Nikolai Voronin")]
+[assembly: AssemblyCopyright("Copyright © 2015-2017 Nikolai Voronin")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 [assembly: AssemblyVersion("1.1.*")]
